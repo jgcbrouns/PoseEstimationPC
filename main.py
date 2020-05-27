@@ -8,7 +8,7 @@ size = (192,192)
 
 def loadImage():
     # load the image
-    image = Image.open('test2.jpg')
+    image = Image.open('test3.jpeg')
     image = image.resize(size)
 
     # convert image to numpy array
@@ -23,7 +23,7 @@ def loadImage():
     return data
 
 def plotImageWithCoordinates(coordinates):
-    im = plt.imread('test2.jpg')
+    im = plt.imread('test3.jpeg')
     implot = plt.imshow(im)
     for coordinate in coordinates:
         x_cord = coordinate[0]  # try this change (p and q are already the coordinates)
@@ -66,6 +66,10 @@ print(output_data.shape)
 for x in output_data:
     coordinates= []
     for heatmap in x:
+
+        # TODO: implement GAUSSIAN KERNEL:
+        # https://github.com/laanlabs/CarPoseDemo/blob/master/CarPoseDemo/PoseUtils.mm
+
         max = 0
         maxX = 0
         maxY = 0
@@ -79,8 +83,9 @@ for x in output_data:
                     maxX = x
                     maxY = y
 
-        scalefactorX = 2046/96
-        scalefactorY = 2048/96
+        # TODO: implement taking imagesize from image info instead of hardcoding
+        scalefactorX = 320/96
+        scalefactorY = 256/96
 
         print('('+str(int(maxX*scalefactorX))+','+str(int(maxY*scalefactorY))+')')
 
